@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # generate basic config
 cat >"${APP_DIR}/pdnsd.conf" <<-EOF
@@ -30,7 +30,7 @@ EOF
 
 # add static upstream servers
 if [ -n "$SERVERS" ]; then
-    for server in "$SERVERS"; do
+    for server in $SERVERS; do
         echo "server {" >>"$APP_DIR/pdnsd.conf"
         IFS=';' read -ra pairs <<< "$server"
         for pair in "${pairs[@]}"; do

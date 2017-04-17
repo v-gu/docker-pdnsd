@@ -17,7 +17,7 @@ ADD entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
 
 # build software stack
-ENV DEP pdnsd
+ENV DEP pdnsd bash
 RUN set -ex \
     && apk --update --no-cache add $DEP \
     && rm -rf /var/cache/apk/* \
