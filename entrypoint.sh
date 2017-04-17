@@ -5,7 +5,7 @@ cat >"${APP_DIR}/pdnsd.conf" <<-EOF
 global {
     perm_cache=10240;
     cache_dir="${APP_DIR}";
-    run_as="pdnsd";
+    run_as=root;
     server_ip = ${INTERFACE};   # Use eth0 here if you want to allow other
                                 # machines on your network to query pdnsd.
     server_port = ${PORT};
