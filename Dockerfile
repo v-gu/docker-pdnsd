@@ -5,19 +5,22 @@
 FROM alpine
 MAINTAINER Vincent.Gu <g@v-io.co>
 
-ENV UDP_PORT   53
-ENV TCP_PORT   53
+ENV APP_DIR                     /srv/pdnsd
+ENV INTERFACE                   127.0.0.1
+ENV PORT                        53
+ENV QUERY_METHOD                tcp_only
 
-EXPOSE $UDP_PORT/udp
-EXPOSE $TCP_PORT/tcp
+EXPOSE $PORT/udp
+EXPOSE $PORT/tcp
+
+ADD entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
 
 # build software stack
 ENV DEP pdnsd
 RUN set -ex \
     && apk --update --no-cache add $DEP \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/cache/apk/* \
+    && ln -s /etc/pdnsd "$APP_DIR"
 
-# copy-in files
-ADD pdnsd/ /srv/pdnsd/
-
-ENTRYPOINT ["/usr/sbin/pdnsd", "-c", "/srv/pdnsd/pdnsd.conf"]
+WORKDIR $APP_DIR
