@@ -8,7 +8,7 @@ MAINTAINER Vincent.Gu <g@v-io.co>
 ENV APP_DIR                     /srv/pdnsd
 ENV INTERFACE                   127.0.0.1
 ENV PORT                        53
-ENV QUERY_METHOD                tcp_only
+ENV QUERY_METHOD                udp_tcp
 
 EXPOSE $PORT/udp
 EXPOSE $PORT/tcp
